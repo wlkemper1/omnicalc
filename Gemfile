@@ -40,6 +40,8 @@ group :development do
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  gem "wdm" if Gem.win_platform?
 end
 
 
