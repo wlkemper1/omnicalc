@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
