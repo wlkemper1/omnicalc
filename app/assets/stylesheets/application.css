@@ -18,3 +18,7 @@
 .dl-horizontal dt {
   white-space: normal;
 }
+
+body {
+  padding-bottom: 200px;
+}
