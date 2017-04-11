@@ -1,31 +1,86 @@
 require "rails_helper"
 
 RSpec.describe "Calculation", type: :feature do
-  describe "Word Count simple" do
-    before do
+  feature "Word Count simple" do
+    it "parrots back the submitted text",
+      points: 1,
+      hint: "This test should pass right away." do
+
       visit "/word_count/new"
-      fill_in "user_text", with: "the first draft is just you telling yourself the story"
-      fill_in "user_word", with: "the"
+
+      fill_in "Text",
+        with: "the first draft is just you telling yourself the story"
+
+      fill_in "Special Word (optional)",
+        with: "the"
+
       click_button "Submit"
+
+      expect(page).to have_css("dd#text", text: "the first draft is just you telling yourself the story")
     end
 
-    it "displays the submitted text", points: 1 do
-      expect(page).to have_content "the first draft is just you telling yourself the story"
+    it "displays the word count",
+      points: 16,
+      hint: "Any contiguous chunk of non-whitespace characters counts as a \"word\". \"Whitespace characters\" include newlines (`\\n`), tabs (`\\t`), carriage returns (`\\r`), etc. `String` has a handy method called `.split` that might help with all this; experiment with it in `rails console`!" do
+
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "the first draft is just you telling yourself the story"
+
+      fill_in "Special Word (optional)",
+        with: "the"
+
+      click_button "Submit"
+
+      expect(page).to have_css("dd#word_count", text: 10)
     end
 
-    it "displays the word count", points: 16 do
-      expect(page).to have_content 10
-    end
+    it "displays the character count with spaces",
+      points: 1 do
 
-    it "displays the character count with spaces", points: 1 do
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "the first draft is just you telling yourself the story"
+
+      fill_in "Special Word (optional)",
+        with: "the"
+
+      click_button "Submit"
+
       expect(page).to have_content 54
     end
 
-    it "displays the character count without spaces", points: 12 do
+    it "displays the character count without spaces",
+      points: 12 do
+
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "the first draft is just you telling yourself the story"
+
+      fill_in "Special Word (optional)",
+        with: "the"
+
+      click_button "Submit"
+
       expect(page).to have_content 45
     end
 
-    it "displays count of the special word occurrences", points: 16 do
+    it "displays count of the special word occurrences",
+      points: 16 do
+
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "the first draft is just you telling yourself the story"
+
+      fill_in "Special Word (optional)",
+        with: "the"
+
+      click_button "Submit"
+
       expect(page).to have_content 2
     end
   end

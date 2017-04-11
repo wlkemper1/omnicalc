@@ -4,20 +4,40 @@
   </div>
   <div class="panel-body">
     <dl class="dl-horizontal">
-      <dt>Text</dt>
-      <dd><%= simple_format(@text) %></dd>
+      <dt>
+        Text
+      </dt>
+      <dd id="text">
+        <%= simple_format(@text) %>
+      </dd>
 
-      <dt>Word Count</dt>
-      <dd><%= @word_count %></dd>
+      <dt>
+        Word Count
+      </dt>
+      <dd id="word_count">
+        <%= @word_count %>
+      </dd>
 
-      <dt>Character Count (with spaces)</dt>
-      <dd><%= @character_count_with_spaces %></dd>
+      <dt>
+        Character Count (with spaces)
+      </dt>
+      <dd id="character_count_with_spaces">
+        <%= @character_count_with_spaces %>
+      </dd>
 
-      <dt>Character Count (without spaces)</dt>
-      <dd><%= @character_count_without_spaces %></dd>
+      <dt>
+        Character Count (without spaces)
+      </dt>
+      <dd id="character_count_without_spaces">
+        <%= @character_count_without_spaces %>
+      </dd>
 
-      <dt>Occurrences of <code><%= @special_word %></code></dt>
-      <dd><%= @occurrences %></dd>
+      <dt>
+        Occurrences of <code><%= @special_word %></code>
+      </dt>
+      <dd id="occurrences">
+        <%= @occurrences %>
+      </dd>
     </dl>
   </div>
 </div>
