@@ -35,7 +35,7 @@ RSpec.describe "Calculation", type: :feature do
 
     it "displays the character count with spaces",
       points: 4,
-      hint: "Don't count newlines (`\\n`) or carriage returns (`\\r`) at the end of the string (this is only an issue on certain operating systems)." do
+      hint: "Don't count newlines (`\\n`) or carriage returns (`\\r`) at the end of the string (this is only an issue depending on certain users' browsers)." do
 
       visit "/word_count/new"
 
@@ -75,7 +75,7 @@ RSpec.describe "Calculation", type: :feature do
 
       click_button "Submit"
 
-      expect(page).to expect(page).to have_css("dd#occurrences", text: 2)
+      expect(page).to have_css("dd#occurrences", text: 2)
     end
   end
 
