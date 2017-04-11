@@ -21,15 +21,12 @@ RSpec.describe "Calculation", type: :feature do
 
     it "displays the word count",
       points: 16,
-      hint: "Any contiguous chunk of non-whitespace characters counts as a \"word\". \"Whitespace characters\" include newlines (`\\n`), tabs (`\\t`), carriage returns (`\\r`), etc. `String` has a handy method called `.split` that might help with all this; experiment with it in `rails console`!" do
+      hint: "Any contiguous chunk of non-whitespace characters counts as a \"word\". \"Whitespace characters\" include newlines (`\\n`), tabs (`\\t`), carriage returns (`\\r`), etc. `String` has a handy method called [split](https://apidock.com/ruby/String/split) that might help with all this; experiment with it in `rails console`!" do
 
       visit "/word_count/new"
 
       fill_in "Text",
         with: "the first draft is just you telling yourself the story"
-
-      fill_in "Special Word (optional)",
-        with: "the"
 
       click_button "Submit"
 
@@ -37,39 +34,36 @@ RSpec.describe "Calculation", type: :feature do
     end
 
     it "displays the character count with spaces",
-      points: 1 do
+      points: 4,
+      hint: "Don't count newlines (`\\n`) or carriage returns (`\\r`) at the end of the string (this is only an issue on certain operating systems)." do
 
       visit "/word_count/new"
 
       fill_in "Text",
         with: "the first draft is just you telling yourself the story"
 
-      fill_in "Special Word (optional)",
-        with: "the"
-
       click_button "Submit"
 
-      expect(page).to have_content 54
+      expect(page).to have_css("dd#character_count_with_spaces", text: 54)
     end
 
     it "displays the character count without spaces",
-      points: 12 do
+      points: 12,
+      hint: "Don't forget to remove _all_ sorts of whitespace from the string, including newlines (`\\n`), tabs (`\\t`), and carriage returns (`\\r`)." do
 
       visit "/word_count/new"
 
       fill_in "Text",
         with: "the first draft is just you telling yourself the story"
 
-      fill_in "Special Word (optional)",
-        with: "the"
-
       click_button "Submit"
 
-      expect(page).to have_content 45
+      expect(page).to have_css("dd#character_count_without_spaces", text: 45)
     end
 
     it "displays count of the special word occurrences",
-      points: 16 do
+      points: 16,
+      hint: "[Ruby Count vs Length vs Size](https://rubyinrails.com/2014/01/15/ruby-count-vs-length-vs-size/)" do
 
       visit "/word_count/new"
 
@@ -81,7 +75,7 @@ RSpec.describe "Calculation", type: :feature do
 
       click_button "Submit"
 
-      expect(page).to have_content 2
+      expect(page).to expect(page).to have_css("dd#occurrences", text: 2)
     end
   end
 
