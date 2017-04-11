@@ -79,32 +79,55 @@ RSpec.describe "Calculation", type: :feature do
     end
   end
 
-  describe "Word Count with mixed case" do
-    before do
-      visit "/word_count/new"
-      fill_in "user_text", with: "The first draft is just you telling yourself the story"
-      fill_in "user_word", with: "the"
-      click_button "Submit"
-    end
-
-    it "displays the submitted text", points: 1 do
-      expect(page).to have_content "The first draft is just you telling yourself the story"
-    end
-
+  feature "Word Count with mixed case" do
     it "displays the word count", points: 1 do
-      expect(page).to have_content 10
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "The first draft is just you telling yourself the story"
+
+      click_button "Submit"
+
+      expect(page).to have_css("dd#word_count", text: 10)
     end
 
     it "displays the character count with spaces", points: 1 do
-      expect(page).to have_content 54
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "The first draft is just you telling yourself the story"
+
+      click_button "Submit"
+
+      expect(page).to have_css("dd#character_count_with_spaces", text: 54)
     end
 
     it "displays the character count without spaces", points: 1 do
-      expect(page).to have_content 45
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "The first draft is just you telling yourself the story"
+
+      fill_in "Special Word (optional)",
+        with: "the"
+
+      click_button "Submit"
+
+      expect(page).to have_css("dd#character_count_without_spaces", text: 45)
     end
 
     it "displays count of the special word occurrences", points: 4 do
-      expect(page).to have_content 2
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "The first draft is just you telling yourself the story"
+
+      fill_in "Special Word (optional)",
+        with: "the"
+
+      click_button "Submit"
+
+      expect(page).to have_css("dd#occurrences", text: 2)
     end
   end
 
