@@ -338,52 +338,52 @@ to strip out all punctuation before doing your other processing." do
       click_button "Submit"
     end
 
-    it "displays the submitted numbers as an array", points: 1 do
-      expect(page).to have_content [10.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 8.0, 9.0]
+    it "parrots back the submitted numbers as an array", points: 1 do
+      expect(page).to have_css("dd#numbers", text: [10.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 8.0, 9.0])
     end
 
     it "displays the numbers as a sorted array", points: 4 do
-      expect(page).to have_content [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 8.0, 9.0, 10.0]
+      expect(page).to have_css("dd#sorted_numbers", text: [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 8.0, 9.0, 10.0])
     end
 
     it "displays the count of numbers", points: 4 do
-      expect(page).to have_content 11
+      expect(page).to have_css("dd#count", text: 11)
     end
 
     it "displays the lowest number", points: 4 do
-      expect(page).to have_content 1.0
+      expect(page).to have_css("dd#minimum", text: 1.0)
     end
 
     it "displays the highest number", points: 4 do
-      expect(page).to have_content 10.0
+      expect(page).to have_css("dd#maximum", text: 10.0)
     end
 
     it "displays the range between the lowest and highest numbers", points: 8 do
-      expect(page).to have_content 9.0
+      expect(page).to have_css("dd#range", text: 9.0)
     end
 
     it "displays the median of the numbers", points: 12 do
-      expect(page).to have_content 6.0
+      expect(page).to have_css("dd#median", text: 6.0)
     end
 
     it "displays the sum of the numbers", points: 5 do
-      expect(page).to have_content 63.0
+      expect(page).to have_css("dd#sum", text: 63.0)
     end
 
     it "displays the mean of the numbers", points: 8 do
-      expect(page).to have_content 5.72
+      expect(page).to have_css("dd#mean", text: 5.72)
     end
 
     it "displays the variance of the numbers", points: 24 do
-      expect(page).to have_content 8.01
+      expect(page).to have_css("dd#variance", text: 8.01)
     end
 
     it "displays the standard deviation of the numbers", points: 8 do
-      expect(page).to have_content 2.83
+      expect(page).to have_css("dd#standard_deviation", text: 2.83)
     end
 
     it "displays the mode of the numbers", points: 8 do
-      expect(page).to have_content 8.0
+      expect(page).to have_css("dd#mode", text: 8.0)
     end
   end
 
@@ -394,52 +394,48 @@ to strip out all punctuation before doing your other processing." do
       click_button "Submit"
     end
 
-    it "displays the submitted numbers as an array", points: 1 do
-      expect(page).to have_content [10.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 8.0]
-    end
-
     it "displays the numbers as a sorted array", points: 1 do
-      expect(page).to have_content [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 8.0, 10.0]
+      expect(page).to have_css("dd#sorted_numbers", text: [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 8.0, 10.0])
     end
 
     it "displays the count of numbers", points: 1 do
-      expect(page).to have_content 10
+      expect(page).to have_css("dd#count", text: 10)
     end
 
     it "displays the lowest number", points: 1 do
-      expect(page).to have_content 1.0
+      expect(page).to have_css("dd#minimum", text: 1.0)
     end
 
     it "displays the highest number", points: 1 do
-      expect(page).to have_content 10.0
+      expect(page).to have_css("dd#maximum", text: 10.0)
     end
 
     it "displays the range between the lowest and highest numbers", points: 1 do
-      expect(page).to have_content 9.0
+      expect(page).to have_css("dd#range", text: 9.0)
     end
 
     it "displays the median of the numbers", points: 9 do
-      expect(page).to have_content 5.5
+      expect(page).to have_css("dd#median", text: 5.5)
     end
 
     it "displays the sum of the numbers", points: 1 do
-      expect(page).to have_content 54.0
+      expect(page).to have_css("dd#sum", text: 54.0)
     end
 
     it "displays the mean of the numbers", points: 1 do
-      expect(page).to have_content 5.4
+      expect(page).to have_css("dd#mean", text: 5.4)
     end
 
     it "displays the variance of the numbers", points: 1 do
-      expect(page).to have_content 7.64
+      expect(page).to have_css("dd#variance", text: 7.64)
     end
 
     it "displays the standard deviation of the numbers", points: 1 do
-      expect(page).to have_content 2.76
+      expect(page).to have_css("dd#standard_deviation", text: 2.76)
     end
 
-    it "displays the mode of the numbers", points: 1 do
-      expect(page).to have_content 8.0
+    it "displays the mode of the numbers", points: 5 do
+      expect(page).to have_css("dd#mode", text: 8.0)
     end
   end
 end
