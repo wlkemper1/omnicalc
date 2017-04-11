@@ -229,7 +229,7 @@ to strip out all punctuation before doing your other processing." do
       visit "/word_count/new"
 
       fill_in "Text",
-        with: "The first draft is just you\ntelling yourself the story.\n"
+        with: "The first draft is just you\rtelling yourself the story.\n"
 
       click_button "Submit"
 
