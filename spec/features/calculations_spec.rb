@@ -110,14 +110,23 @@ Don't forget to remove _all_ sorts of whitespace from the string, including newl
       expect(page).to have_css("dd#character_count_with_spaces", text: 54)
     end
 
-    it "displays the character count without spaces", points: 1 do
+    it "displays the character count without spaces",
+      points: 1,
+      hint: "Eventually, `gsub`bing every possible whitespace character one by one becomes impractical. However, `gsub` can also accept a **regular expression** as its first argument.
+
+[Regular expressions](https://regexone.com/), or \"regexes\", are a very powerful way to search for _patterns_ within strings, and are almost a whole programming language unto themselves. In Ruby, regexes are wrapped in forward slashes, the way strings are wrapped in quotes.
+
+We don't need to spend time learning regexes right now, but if you ever find yourself needing to detect particular _patterns_ within strings, then let them ring a bell. For now, the regex `/\\s+/` matches one or more contiguous whitespace characters. So, try something like
+
+```ruby
+@text.gsub(/\s+/, "")`
+```
+
+to strip out all whitespace before doing your other processing." do
       visit "/word_count/new"
 
       fill_in "Text",
         with: "The first draft is just you telling yourself the story"
-
-      fill_in "Special Word (optional)",
-        with: "the"
 
       click_button "Submit"
 
@@ -159,7 +168,7 @@ Don't forget to remove _all_ sorts of whitespace from the string, including newl
 
       click_button "Submit"
 
-      expect(page).to have_css("dd#character_count_with_spaces", text: 54)
+      expect(page).to have_css("dd#character_count_with_spaces", text: 55)
     end
 
     it "displays the character count without spaces", points: 1 do
@@ -168,12 +177,9 @@ Don't forget to remove _all_ sorts of whitespace from the string, including newl
       fill_in "Text",
         with: "The first draft is just you telling yourself the story."
 
-      fill_in "Special Word (optional)",
-        with: "the"
-
       click_button "Submit"
 
-      expect(page).to have_css("dd#character_count_without_spaces", text: 45)
+      expect(page).to have_css("dd#character_count_without_spaces", text: 46)
     end
 
     it "displays count of the special word occurrences",
@@ -205,31 +211,54 @@ to strip out all punctuation before doing your other processing." do
   end
 
   describe "Word Count with newlines" do
-    before do
-      visit "/word_count/new"
-      fill_in "user_text", with: "The first draft is just you\ntelling yourself the story.\n"
-      fill_in "user_word", with: "story"
-      click_button "Submit"
-    end
-
-    it "displays the submitted text", points: 1 do
-      expect(page).to have_content "The first draft is just you\ntelling yourself the story.\n"
-    end
-
     it "displays the word count", points: 1 do
-      expect(page).to have_content 10
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "The first draft is just you\ntelling yourself the story.\n"
+
+      fill_in "Special Word (optional)",
+        with: "story"
+
+      click_button "Submit"
+
+      expect(page).to have_css("dd#word_count", text: 10)
     end
 
     it "displays the character count with spaces", points: 1 do
-      expect(page).to have_content 58
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "The first draft is just you\ntelling yourself the story.\n"
+
+      click_button "Submit"
+
+      expect(page).to have_css("dd#character_count_with_spaces", text: 55)
     end
 
-    it "displays the character count without spaces", points: 4 do
-      expect(page).to have_content 46
+    it "displays the character count without spaces", points: 1 do
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "The first draft is just you\ntelling yourself the story.\n"
+
+      click_button "Submit"
+
+      expect(page).to have_css("dd#character_count_without_spaces", text: 46)
     end
 
-    it "displays count of the special word occurrences", points: 1 do
-      expect(page).to have_content 1
+    it "displays count of the special word occurrences", points: 4 do
+      visit "/word_count/new"
+
+      fill_in "Text",
+        with: "The first draft is just you\ntelling yourself the story.\n"
+
+      fill_in "Special Word (optional)",
+        with: "story"
+
+      click_button "Submit"
+
+      expect(page).to have_css("dd#occurrences", text: 1)
     end
   end
 
